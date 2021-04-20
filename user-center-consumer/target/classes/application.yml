@@ -1,0 +1,32 @@
+server:
+  address:
+  port: 8080
+  servlet:
+    context-path: /usercenter
+
+spring:
+  application:
+    name: user-center-consumer
+  datasource:
+    username: root
+    password: zhangyu0927
+    url: jdbc:mysql://localhost:3306/user-center?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.study.dto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+nacos:
+  config:
+    server-addr: localhost:8848
+
+dubbo:
+  registry:
+    address: nacos://${nacos.config.server-addr}
+  #    address: nacos://192.168.207.1:8848
+    parameters[namespace]: user-center
+  application:
+    name: ${spring.application.name}

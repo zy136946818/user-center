@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.UserAddressInfoMapper">
+  <resultMap id="BaseResultMap" type="com.study.dto.UserAddressInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="country_code" jdbcType="VARCHAR" property="countryCode" />
+    <result column="town_code" jdbcType="VARCHAR" property="townCode" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="country_name" jdbcType="VARCHAR" property="countryName" />
+    <result column="town_name" jdbcType="VARCHAR" property="townName" />
+    <result column="village_name" jdbcType="VARCHAR" property="villageName" />
+    <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
+    <result column="address_region" jdbcType="VARCHAR" property="addressRegion" />
+    <result column="postal_code" jdbcType="VARCHAR" property="postalCode" />
+    <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, province_code, city_code, country_code, town_code, village_code, province_name, 
+    city_name, country_name, town_name, village_name, address_detail, address_region, 
+    postal_code, deleted, create_time, update_time, create_by, update_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_address_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_address_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.study.dto.UserAddressInfo" useGeneratedKeys="true">
+    insert into user_address_info (user_id, province_code, city_code, 
+      country_code, town_code, village_code, 
+      province_name, city_name, country_name, 
+      town_name, village_name, address_detail, 
+      address_region, postal_code, deleted, 
+      create_time, update_time, create_by, 
+      update_by)
+    values (#{userId,jdbcType=BIGINT}, #{provinceCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{countryCode,jdbcType=VARCHAR}, #{townCode,jdbcType=VARCHAR}, #{villageCode,jdbcType=VARCHAR}, 
+      #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{countryName,jdbcType=VARCHAR}, 
+      #{townName,jdbcType=VARCHAR}, #{villageName,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR}, 
+      #{addressRegion,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR}, #{deleted,jdbcType=BOOLEAN}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.study.dto.UserAddressInfo" useGeneratedKeys="true">
+    insert into user_address_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="countryCode != null">
+        country_code,
+      </if>
+      <if test="townCode != null">
+        town_code,
+      </if>
+      <if test="villageCode != null">
+        village_code,
+      </if>
+      <if test="provinceName != null">
+        province_name,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="countryName != null">
+        country_name,
+      </if>
+      <if test="townName != null">
+        town_name,
+      </if>
+      <if test="villageName != null">
+        village_name,
+      </if>
+      <if test="addressDetail != null">
+        address_detail,
+      </if>
+      <if test="addressRegion != null">
+        address_region,
+      </if>
+      <if test="postalCode != null">
+        postal_code,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null">
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="townCode != null">
+        #{townCode,jdbcType=VARCHAR},
+      </if>
+      <if test="villageCode != null">
+        #{villageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="townName != null">
+        #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageName != null">
+        #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegion != null">
+        #{addressRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.dto.UserAddressInfo">
+    update user_address_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null">
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="townCode != null">
+        town_code = #{townCode,jdbcType=VARCHAR},
+      </if>
+      <if test="villageCode != null">
+        village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        country_name = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="townName != null">
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageName != null">
+        village_name = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegion != null">
+        address_region = #{addressRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        postal_code = #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.dto.UserAddressInfo">
+    update user_address_info
+    set user_id = #{userId,jdbcType=BIGINT},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR},
+      town_code = #{townCode,jdbcType=VARCHAR},
+      village_code = #{villageCode,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      country_name = #{countryName,jdbcType=VARCHAR},
+      town_name = #{townName,jdbcType=VARCHAR},
+      village_name = #{villageName,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      address_region = #{addressRegion,jdbcType=VARCHAR},
+      postal_code = #{postalCode,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
