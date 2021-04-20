@@ -13,8 +13,8 @@ public interface UserAddressInfoService {
 
     /**
      * @Description: 添加地址
-     * @Param:
-     * @Return:
+     * @Param: insertUserAddressRequest
+     * @Return: Result
      * @Auther: zhangYu
      * @Date: 2021/4/19 20:43
      */
@@ -22,18 +22,27 @@ public interface UserAddressInfoService {
 
     /**
      * @Description: 删除用户地址
-     * @Param:
-     * @Return:
+     * @Param: deleteUserAddressRequest
+     * @Return: Result
      * @Auther: zhangYu
      * @Date: 2021/4/20 14:06
      */
     Result deleteUserAddress(DeleteUserAddressRequest deleteUserAddressRequest, Long userId);
     /**
      * @Description: 修改用户地址
-     * @Param:
-     * @Return:
+     * @Param: updateUserAddressRequest
+     * @Return: Result
      * @Auther: zhangYu
      * @Date: 2021/4/20 16:23
      */
     Result updateUserAddress(UpdateUserAddressRequest updateUserAddressRequest);
+
+    /**
+     * @Description: 查询用户地址
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 20:30
+     */
+    Result getUserAddressList(Long userId);
 }

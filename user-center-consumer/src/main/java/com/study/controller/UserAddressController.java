@@ -1,10 +1,7 @@
 package com.study.controller;
 
 import com.study.api.UserAddressInfoService;
-import com.study.vo.DeleteUserAddressRequest;
-import com.study.vo.InsertUserAddressRequest;
-import com.study.vo.Result;
-import com.study.vo.UpdateUserAddressRequest;
+import com.study.vo.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +47,13 @@ public class UserAddressController {
         return userAddressInfoService.deleteUserAddress(deleteUserAddressRequest,userId);
     }
 
+    /**
+     * @Description: 修改用户地址
+     * @Param: [updateUserAddressRequest, userId]
+     * @Return: com.study.vo.Result
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 17:03
+     */
     @RequestMapping("/updateUserAddress")
     public Result updateUserAddress (@RequestBody UpdateUserAddressRequest updateUserAddressRequest , @RequestHeader("userId") Long userId) {
         if (null == userId) {
@@ -58,6 +62,22 @@ public class UserAddressController {
         updateUserAddressRequest.setUserId(userId);
         return userAddressInfoService.updateUserAddress(updateUserAddressRequest);
     }
+
+    /**
+     * @Description: 查询用户地址
+     * @Param: [userId]
+     * @Return: com.study.vo.Result<?>
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 20:31
+     */
+    @RequestMapping("/getUserAddress")
+    public Result getUserAddressList(@RequestHeader("userId") Long userId) {
+        if (null == userId) {
+            return Result.fail("用户未登录");
+        }
+        return userAddressInfoService.getUserAddressList(userId);
+    }
+
 
 
 

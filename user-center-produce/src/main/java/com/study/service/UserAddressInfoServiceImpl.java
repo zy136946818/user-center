@@ -5,14 +5,13 @@ import cn.hutool.json.JSONUtil;
 import com.study.api.UserAddressInfoService;
 import com.study.dto.UserAddressInfo;
 import com.study.mapper.UserAddressInfoMapper;
-import com.study.vo.DeleteUserAddressRequest;
-import com.study.vo.InsertUserAddressRequest;
-import com.study.vo.Result;
-import com.study.vo.UpdateUserAddressRequest;
+import com.study.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author zhangYu
@@ -109,6 +108,48 @@ public class UserAddressInfoServiceImpl implements UserAddressInfoService {
         int i = userAddressInfoMapper.updateUserByUserIdAndAddressId(userAddressInfo);
         log.info("updateUserAddress 修改用户地址 ======> 返参{}",i);
         return Result.success();
+    }
+
+    /**
+     * @Description: 查询用户地址
+     * @Param: [userId]
+     * @Return: com.study.vo.Result<?>
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 20:43
+     */
+    @Override
+    public Result getUserAddressList(Long userId) {
+        log.info("getUserAddressList 查询用户地址入参 ======> {}",userId);
+        List<UserAddressInfo> userAddressInfos = userAddressInfoMapper.selectByUserId(userId);
+        if (userAddressInfos.size() <= 0){
+            return Result.success("暂无可用地址");
+        }
+        List<GetUserAddressListResponse> responseList = new ArrayList<GetUserAddressListResponse>();
+        for (UserAddressInfo userAddressInfo : userAddressInfos) {
+            GetUserAddressListResponse getUserAddressListResponse = new GetUserAddressListResponse();
+            getUserAddressListResponse.setId(userAddressInfo.getId());
+            getUserAddressListResponse.setUserId(userAddressInfo.getUserId());
+            getUserAddressListResponse.setProvinceCode(userAddressInfo.getProvinceCode());
+            getUserAddressListResponse.setCityCode(userAddressInfo.getCityCode());
+            getUserAddressListResponse.setCountryCode(userAddressInfo.getCountryCode());
+            getUserAddressListResponse.setTownCode(userAddressInfo.getTownCode());
+            getUserAddressListResponse.setVillageCode(userAddressInfo.getVillageCode());
+            getUserAddressListResponse.setProvinceName(userAddressInfo.getProvinceName());
+            getUserAddressListResponse.setCityName(userAddressInfo.getCityName());
+            getUserAddressListResponse.setCountryName(userAddressInfo.getCountryName());
+            getUserAddressListResponse.setTownName(userAddressInfo.getTownName());
+            getUserAddressListResponse.setVillageName(userAddressInfo.getVillageName());
+            getUserAddressListResponse.setAddressDetail(userAddressInfo.getAddressDetail());
+            getUserAddressListResponse.setAddressRegion(userAddressInfo.getAddressRegion());
+            getUserAddressListResponse.setPostalCode(userAddressInfo.getPostalCode());
+            getUserAddressListResponse.setCreateTime(DateUtil.formatTime(userAddressInfo.getCreateTime()));
+            getUserAddressListResponse.setCreateBy(userAddressInfo.getCreateBy());
+            getUserAddressListResponse.setUpdateBy(userAddressInfo.getUpdateBy());
+            getUserAddressListResponse.setUpdateTime(DateUtil.formatDateTime(userAddressInfo.getUpdateTime()));
+            responseList.add(getUserAddressListResponse);
+        }
+        log.info("getUserAddressList 查询用户地址返参 ======> {}",JSONUtil.toJsonStr(responseList));
+        return Result.success(responseList);
     }
 
 }

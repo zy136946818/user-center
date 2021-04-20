@@ -4,6 +4,8 @@ package com.study.mapper;
 import com.study.dto.UserAddressInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserAddressInfoMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -30,4 +32,13 @@ public interface UserAddressInfoMapper {
      * @Date: 2021/4/20 16:29
      */
     int updateUserByUserIdAndAddressId(UserAddressInfo userAddressInfo);
+
+    /**
+     * @Description: 查询用户地址
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 20:34
+     */
+    List<UserAddressInfo> selectByUserId(@Param("userId") Long userId);
 }
