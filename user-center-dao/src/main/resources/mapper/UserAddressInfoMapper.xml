@@ -261,4 +261,12 @@
       update_by = #{updateBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateByAddressIdAndUserId">
+    update user_address_info
+    set
+        deleted = 1,
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT} and user_id =#{userId,jdbcType=BIGINT}
+  </update>
 </mapper>

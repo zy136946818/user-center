@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.study.api.UserAddressInfoService;
 import com.study.dto.UserAddressInfo;
 import com.study.mapper.UserAddressInfoMapper;
+import com.study.vo.DeleteUserAddressRequest;
 import com.study.vo.InsertUserAddressRequest;
 import com.study.vo.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,27 @@ public class UserAddressInfoServiceImpl implements UserAddressInfoService {
         userAddressInfo.setUpdateTime(DateUtil.date());
         userAddressInfo.setUpdateBy(Long.toString(insertUserAddressRequest.getUserId()));
         userAddressInfoMapper.insertSelective(userAddressInfo);
+        return Result.success();
+    }
+
+    /**
+     * @Description: 删除用户地址
+     * @Param: [deleteUserAddressRequest, userId]
+     * @Return: com.study.vo.Result
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 16:05
+     */
+    @Override
+    public Result deleteUserAddress(DeleteUserAddressRequest deleteUserAddressRequest, Long userId) {
+        log.info("deleteUserAddress 删除用户地址 =======> 入参 {} {}",JSONUtil.toJsonStr(deleteUserAddressRequest),userId);
+        // 封装数据
+        UserAddressInfo userAddressInfo = new UserAddressInfo();
+        userAddressInfo.setUserId(userId);
+        userAddressInfo.setId(Long.parseLong(deleteUserAddressRequest.getAddressId()));
+        userAddressInfo.setUpdateTime(DateUtil.date());
+        userAddressInfo.setUpdateBy(Long.toString(userId));
+        int i = userAddressInfoMapper.updateByAddressIdAndUserId(userAddressInfo);
+        log.info("deleteUserAddress 删除用户地址 =======> 返参 {}",i);
         return Result.success();
     }
 
