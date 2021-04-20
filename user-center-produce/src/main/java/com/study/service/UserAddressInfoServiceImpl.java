@@ -8,6 +8,7 @@ import com.study.mapper.UserAddressInfoMapper;
 import com.study.vo.DeleteUserAddressRequest;
 import com.study.vo.InsertUserAddressRequest;
 import com.study.vo.Result;
+import com.study.vo.UpdateUserAddressRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -75,6 +76,38 @@ public class UserAddressInfoServiceImpl implements UserAddressInfoService {
         userAddressInfo.setUpdateBy(Long.toString(userId));
         int i = userAddressInfoMapper.updateByAddressIdAndUserId(userAddressInfo);
         log.info("deleteUserAddress 删除用户地址 =======> 返参 {}",i);
+        return Result.success();
+    }
+
+    /**
+     * @Description: 修改用户地址
+     * @Param: [updateUserAddressRequest]
+     * @Return: com.study.vo.Result
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 16:23
+     */
+    @Override
+    public Result updateUserAddress(UpdateUserAddressRequest updateUserAddressRequest) {
+        log.info("updateUserAddress 修改用户地址 ======> 入参{}",JSONUtil.toJsonStr(updateUserAddressRequest));
+        UserAddressInfo userAddressInfo = new UserAddressInfo();
+        userAddressInfo.setId(updateUserAddressRequest.getAddressId());
+        userAddressInfo.setUserId(updateUserAddressRequest.getUserId());
+        userAddressInfo.setProvinceCode(updateUserAddressRequest.getProvinceCode());
+        userAddressInfo.setCityCode(updateUserAddressRequest.getCityCode());
+        userAddressInfo.setCountryCode(updateUserAddressRequest.getCountryCode());
+        userAddressInfo.setTownCode(updateUserAddressRequest.getTownCode());
+        userAddressInfo.setVillageCode(updateUserAddressRequest.getVillageCode());
+        userAddressInfo.setProvinceName(updateUserAddressRequest.getProvinceName());
+        userAddressInfo.setCityName(updateUserAddressRequest.getCityName());
+        userAddressInfo.setCountryName(updateUserAddressRequest.getCountryName());
+        userAddressInfo.setTownName(updateUserAddressRequest.getTownName());
+        userAddressInfo.setVillageName(updateUserAddressRequest.getVillageName());
+        userAddressInfo.setAddressDetail(updateUserAddressRequest.getAddressDetail());
+        userAddressInfo.setPostalCode(updateUserAddressRequest.getPostalCode());
+        userAddressInfo.setUpdateTime(DateUtil.date());
+        userAddressInfo.setUpdateBy(Long.toString(updateUserAddressRequest.getUserId()));
+        int i = userAddressInfoMapper.updateUserByUserIdAndAddressId(userAddressInfo);
+        log.info("updateUserAddress 修改用户地址 ======> 返参{}",i);
         return Result.success();
     }
 

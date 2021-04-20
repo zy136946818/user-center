@@ -4,6 +4,7 @@ import com.study.api.UserAddressInfoService;
 import com.study.vo.DeleteUserAddressRequest;
 import com.study.vo.InsertUserAddressRequest;
 import com.study.vo.Result;
+import com.study.vo.UpdateUserAddressRequest;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,16 @@ public class UserAddressController {
         }
         return userAddressInfoService.deleteUserAddress(deleteUserAddressRequest,userId);
     }
+
+    @RequestMapping("/updateUserAddress")
+    public Result updateUserAddress (@RequestBody UpdateUserAddressRequest updateUserAddressRequest , @RequestHeader("userId") Long userId) {
+        if (null == userId) {
+            return Result.fail("用户未登录");
+        }
+        updateUserAddressRequest.setUserId(userId);
+        return userAddressInfoService.updateUserAddress(updateUserAddressRequest);
+    }
+
 
 
 

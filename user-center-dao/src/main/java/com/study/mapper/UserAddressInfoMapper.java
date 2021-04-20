@@ -23,4 +23,11 @@ public interface UserAddressInfoMapper {
      * @Date: 2021/4/20 14:10
      */
     int updateByAddressIdAndUserId(UserAddressInfo userAddressInfo);
+
+    /**
+     * @Description: 修改用户地址
+     * @Auther: zhangYu
+     * @Date: 2021/4/20 16:29
+     */
+    int updateUserByUserIdAndAddressId(UserAddressInfo userAddressInfo);
 }

@@ -269,4 +269,58 @@
         update_by = #{updateBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT} and user_id =#{userId,jdbcType=BIGINT}
   </update>
+  <update id="updateUserByUserIdAndAddressId">
+    update user_address_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null">
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="townCode != null">
+        town_code = #{townCode,jdbcType=VARCHAR},
+      </if>
+      <if test="villageCode != null">
+        village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        country_name = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="townName != null">
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageName != null">
+        village_name = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegion != null">
+        address_region = #{addressRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        postal_code = #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and user_id = #{userId,jdbcType=BIGINT}
+  </update>
 </mapper>
