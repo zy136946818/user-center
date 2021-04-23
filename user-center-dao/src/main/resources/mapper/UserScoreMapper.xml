@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.UserScoreMapper">
+  <resultMap id="BaseResultMap" type="com.study.dto.UserScore">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, score, total_score, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_score
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+     select
+     <include refid="Base_Column_List" />
+     from user_score
+     where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.study.dto.UserScore" useGeneratedKeys="true">
+    insert into user_score (user_id, score, total_score, 
+      create_time, update_time)
+    values (#{userId,jdbcType=BIGINT}, #{score,jdbcType=INTEGER}, #{totalScore,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.study.dto.UserScore" useGeneratedKeys="true">
+    insert into user_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="totalScore != null">
+        total_score,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.dto.UserScore">
+    update user_score
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.dto.UserScore">
+    update user_score
+    set user_id = #{userId,jdbcType=BIGINT},
+      score = #{score,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByUpdateTimeAndUserId">
+    update user_score
+    <set>
+      <if test="userScore.score != null">
+        score = #{userScore.score,jdbcType=INTEGER},
+      </if>
+      <if test="userScore.totalScore != null">
+        total_score = #{userScore.totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="userScore.updateTime != null">
+        update_time = #{userScore.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userScore.userId,jdbcType=BIGINT} and update_time =#{updateTime,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

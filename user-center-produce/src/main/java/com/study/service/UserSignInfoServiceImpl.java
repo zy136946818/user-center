@@ -1,0 +1,87 @@
+package com.study.service;
+
+import cn.hutool.core.date.DateUtil;
+import com.study.api.UserSignInfoService;
+import com.study.dto.SignInfo;
+import com.study.dto.UserAddressInfo;
+import com.study.dto.UserScore;
+import com.study.mapper.SignInfoMapper;
+import com.study.mapper.UserAddressInfoMapper;
+import com.study.mapper.UserScoreMapper;
+import com.study.vo.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
+
+import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @Author zhangYu
+ * @Date 2021/4/22 17:05
+ */
+@Slf4j
+@Service
+public class UserSignInfoServiceImpl implements UserSignInfoService {
+
+    @Resource
+    private SignInfoMapper signInfoMapper;
+
+    @Resource
+    private UserScoreMapper userScoreMapper;
+    /**
+     * @Description: 用户签到
+     * @Param: [userId]
+     * @Return: com.study.vo.Result
+     * @Auther: zhangYu
+     * @Date: 2021/4/23 8:46
+     */
+    @Override
+    public Result userSignInfo(Long userId) {
+        log.info("userSignInfo 用户签到 ======> 入参{}",userId);
+        String signDate = DateUtil.today();
+        // 判断用户今日是否已签到
+        List<SignInfo> isSignInfo = signInfoMapper.selectBySignDateAndUserId(userId, signDate);
+        if (isSignInfo.size() > 0){
+            return Result.success("今天已签到");
+        }
+        SignInfo signInfo = new SignInfo();
+        signInfo.setUserId(userId);
+        signInfo.setSignDate(DateUtil.date());
+        signInfo.setSignTimeMonth(DateUtil.month(DateUtil.date())+1);
+        // 签到
+        int i = signInfoMapper.insertSelective(signInfo);
+        if (i <= 0) {
+            return Result.fail("签到失败，请重试");
+        }
+        int flag = 0;
+        while (flag < 3) {
+            UserScore userScore = userScoreMapper.selectByUserId(userId);
+            if (userScore == null) {
+                UserScore user = new UserScore();
+                user.setUserId(userId);
+                user.setScore(1);
+                user.setTotalScore(1);
+                user.setCreateTime(DateUtil.date());
+                user.setUpdateTime(DateUtil.date());
+                userScoreMapper.insertSelective(user);
+                break;
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String updateTime = formatter.format(userScore.getUpdateTime());
+            System.out.println("userScore.getUpdateTime()============"+userScore.getUpdateTime());
+            userScore.setUserId(userId);
+            userScore.setScore(userScore.getScore()+1);
+            userScore.setTotalScore(userScore.getTotalScore()+1);
+            userScore.setUpdateTime(DateUtil.date());
+            int isUpdate = userScoreMapper.updateByUpdateTimeAndUserId(userScore, updateTime);
+            if (isUpdate > 0) {
+                break;
+            }
+            flag++;
+        }
+        return Result.success();
+    }
+
+}
