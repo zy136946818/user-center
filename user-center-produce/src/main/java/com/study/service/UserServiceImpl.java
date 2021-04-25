@@ -3,10 +3,16 @@ package com.study.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
 import com.study.api.UserService;
+import com.study.dto.UserScore;
+import com.study.dto.UserScoreDetail;
+import com.study.enums.ScoreTypeEnum;
 import com.study.mapper.UserMapper;
 import com.study.dto.User;
+import com.study.mapper.UserScoreDetailMapper;
+import com.study.mapper.UserScoreMapper;
 import com.study.util.FormatUtil;
 import com.study.util.RandomUUIDUtil;
 import com.study.vo.*;
@@ -29,6 +35,10 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private UserScoreMapper userScoreMapper;
+    @Resource
+    private UserScoreDetailMapper userScoreDetailMapper;
 
     /**
      * @Description: 用户注册
@@ -53,7 +63,25 @@ public class UserServiceImpl implements UserService {
         user.setCreateTime(new Date());
         user.setUpdateBy(user.getAccount());
         user.setUpdateTime(new Date());
+        // 添加用户
         userMapper.insertSelective(user);
+        // 维护用户积分表
+        UserScore userScore = new UserScore();
+        userScore.setUserId(user.getId());
+        userScore.setScore(1);
+        userScore.setTotalScore(1);
+        userScore.setUpdateTime(DateUtil.date());
+        userScore.setCreateTime(DateUtil.date());
+        userScoreMapper.insertSelective(userScore);
+        // 维护积分详情表
+        UserScoreDetail userScoreDetail = new UserScoreDetail();
+        userScoreDetail.setUserId(user.getId());
+        userScoreDetail.setScore(1);
+        userScoreDetail.setTotalScore(1);
+        userScoreDetail.setCreateTime(DateUtil.date());
+        userScoreDetail.setScoreType(ScoreTypeEnum.REGISTER.getDesc());
+        userScoreDetail.setRemark(ScoreTypeEnum.REGISTER.getDesc());
+        userScoreDetailMapper.insertSelective(userScoreDetail);
         return Result.success();
     }
 

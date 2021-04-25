@@ -4,7 +4,6 @@ package com.study.mapper;
 import com.study.dto.SignInfo;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 
 public interface SignInfoMapper {
     int deleteByPrimaryKey(Long id);
@@ -26,5 +25,17 @@ public interface SignInfoMapper {
      * @Auther: zhangYu
      * @Date: 2021/4/23 10:00
      */
-    List<SignInfo> selectBySignDateAndUserId(@Param("userId") Long userId, @Param("signDate") String signDate);
+    SignInfo selectBySignDateAndUserId(@Param("userId") Long userId, @Param("signDate") String signDate);
+
+    /**
+     * @Description: 统计用户当前月签到天数
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/23 16:13
+     */
+    Integer getUserSignInfoCountByUserId(@Param("userId") Long userId,@Param("month") Integer month);
+
+
+
 }

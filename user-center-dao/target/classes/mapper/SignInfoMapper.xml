@@ -22,6 +22,10 @@
     from sign_info
     where user_id = #{userId,jdbcType=BIGINT} and date(sign_date) = #{signDate}
   </select>
+  <select id="getUserSignInfoCountByUserId" resultType="java.lang.Integer">
+    select max(sign_time_month) from sign_info where user_id = #{userId,jdbcType=BIGINT} and MONTH(sign_date) = #{month}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sign_info
     where id = #{id,jdbcType=BIGINT}

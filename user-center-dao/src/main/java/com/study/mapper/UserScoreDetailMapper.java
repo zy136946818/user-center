@@ -15,4 +15,15 @@ public interface UserScoreDetailMapper {
     int updateByPrimaryKeySelective(UserScoreDetail record);
 
     int updateByPrimaryKey(UserScoreDetail record);
+
+    /**
+     * @Description: 获取用户最新积分详情
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/25 11:04
+     */
+    UserScoreDetail getUserTotalScore(Long userId);
+
+
 }

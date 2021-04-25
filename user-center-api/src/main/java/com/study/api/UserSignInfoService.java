@@ -16,6 +16,14 @@ public interface UserSignInfoService {
      * @Date: 2021/4/23 8:46
      */
     Result userSignInfo(Long userId);
+    /**
+     * @Description: 用户签到次数
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/23 16:05
+     */
+    Result userSignInfoCount(Long userId);
 
 
 
