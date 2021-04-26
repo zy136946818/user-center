@@ -14,11 +14,11 @@ import com.study.dto.User;
 import com.study.mapper.UserScoreDetailMapper;
 import com.study.mapper.UserScoreMapper;
 import com.study.util.FormatUtil;
+import com.study.util.MD5Util;
 import com.study.util.RandomUUIDUtil;
 import com.study.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 
 import javax.annotation.Resource;
@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
         if (user.getAccount() == null){
             user.setAccount(RandomUUIDUtil.getUUID());
         }
+        user.setPassWord(MD5Util.getPwd(user.getPassWord()));
         user.setCreateBy(user.getAccount());
         user.setCreateTime(new Date());
         user.setUpdateBy(user.getAccount());
@@ -96,8 +97,8 @@ public class UserServiceImpl implements UserService {
     public Result userLogin(UserLoginRequest userLoginRequest) {
         log.info("userLogin 入参 {}",JSONUtil.toJsonStr(userLoginRequest));
         User user = new User();
+        user.setPassWord(MD5Util.getPwd(userLoginRequest.getPassWord()));
         user.setEmail(userLoginRequest.getEmail());
-        user.setPassWord(userLoginRequest.getPassWord());
         user.setPhone(userLoginRequest.getPhone());
         // 判断用户是否注册
         User selectByPhoneOrEmail = userMapper.selectByPhoneOrEmail(user);
