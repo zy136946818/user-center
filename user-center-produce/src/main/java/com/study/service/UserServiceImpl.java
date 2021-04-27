@@ -127,9 +127,10 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setAccount(retrievePasswordRequest.getAccount());
         user.setPhone(retrievePasswordRequest.getPhone());
-        user.setPassWord(retrievePasswordRequest.getPassWord());
+        user.setPhone(retrievePasswordRequest.getPhone());
+        user.setPassWord(MD5Util.getPwd(retrievePasswordRequest.getPassWord()));
         user.setUpdateTime(new Date());
-        String newPassWord = retrievePasswordRequest.getNewPassWord();
+        String newPassWord = MD5Util.getPwd(retrievePasswordRequest.getNewPassWord());
         return Result.success(userMapper.updatePassWordByPhoneOrAccount(user,newPassWord));
     }
 
