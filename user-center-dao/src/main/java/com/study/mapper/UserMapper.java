@@ -4,6 +4,8 @@ package com.study.mapper;
 import com.study.dto.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
@@ -63,4 +65,22 @@ public interface UserMapper {
      * @Date: 2021/4/7 9:56
      */
     int updateByIdAndPassWord(User record);
+
+    /**
+     * @Description: 通过userId判断用户是否注册
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/27 15:36
+     */
+    Long isExistUser(Long userId);
+
+    /**
+     * @Description: 获取用户列表
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/27 16:28
+     */
+    List<User> getUserList();
 }

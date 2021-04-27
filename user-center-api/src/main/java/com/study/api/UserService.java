@@ -3,6 +3,8 @@ package com.study.api;
 import com.study.dto.User;
 import com.study.vo.*;
 
+import java.util.List;
+
 /**
  * @Author zhangYu
  * @Date 2021/3/17 9:43
@@ -54,5 +56,23 @@ public interface UserService {
      * @Date: 2021/4/7 9:27
      */
     Result updatePhoneOrEmail(UpdatePhoneOrEmailRequest updatePhoneOrEmailRequest);
+
+    /**
+     * @Description: 注销用户
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/27 15:32
+     */
+    Result logOffUser(Long userId);
+
+    /**
+     * @Description: 查询用户列表
+     * @Param:
+     * @Return:
+     * @Auther: zhangYu
+     * @Date: 2021/4/27 16:21
+     */
+    Result<?> getUserList(BasePageRequestVo basePageRequestVo);
 
 }

@@ -120,4 +120,24 @@ public class UserController {
         updatePhoneOrEmailRequest.setId(userId);
         return userService.updatePhoneOrEmail(updatePhoneOrEmailRequest);
     }
+
+    /**
+     * @Description: 注销用户
+     * @Param: [userId]
+     * @Return: com.study.vo.Result
+     * @Auther: zhangYu
+     * @Date: 2021/4/27 15:30
+     */
+    @RequestMapping("/logOffUser")
+    public Result logOffUser(@RequestHeader Long userId) {
+        if (null == userId) {
+            return Result.fail("用户未登录");
+        }
+        return userService.logOffUser(userId);
+    }
+
+    @RequestMapping("/getUserList")
+    public Result<?> getUserList(@RequestBody BasePageRequestVo basePageRequestVo) {
+        return userService.getUserList(basePageRequestVo);
+    }
 }

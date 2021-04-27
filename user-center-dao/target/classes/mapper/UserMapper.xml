@@ -64,6 +64,14 @@
       </if>
     </where>
   </select>
+  <select id="isExistUser" resultType="java.lang.Long">
+    select id from user where id = #{userId} and is_delete = 0
+  </select>
+  <select id="getUserList" resultType="com.study.dto.User">
+    select
+      id, user_name, account, sex, age, phone, email,create_time, create_by, update_time,update_by
+    from user where is_delete = 0
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
     where id = #{id,jdbcType=BIGINT}
