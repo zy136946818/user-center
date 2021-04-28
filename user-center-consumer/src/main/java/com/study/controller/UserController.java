@@ -136,6 +136,13 @@ public class UserController {
         return userService.logOffUser(userId);
     }
 
+    /**
+     * @Description: 获取用户列表
+     * @Param: [basePageRequestVo]
+     * @Return: com.study.vo.Result<?>
+     * @Auther: zhangYu
+     * @Date: 2021/4/28 16:44
+     */
     @RequestMapping("/getUserList")
     public Result<?> getUserList(@RequestBody BasePageRequestVo basePageRequestVo) {
         return userService.getUserList(basePageRequestVo);
